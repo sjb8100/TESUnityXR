@@ -186,6 +186,8 @@ namespace TESUnity
                         return TESUnity.instance.creaturesEnabled ? new CREARecord() : null;
                     case "NPC_":
                         return TESUnity.instance.npcsEnabled ? new NPC_Record() : null;
+                    case "BODY":
+                        return new BODYRecord();
 					default:
 						return null;
 				}
@@ -344,6 +346,10 @@ namespace TESUnity
                     else if (record is NPC_Record)
                     {
                         objectsByIDString.Add(((NPC_Record)record).NAME.value, record);
+                    }
+                    else if (record is BODYRecord)
+                    {
+                        objectsByIDString.Add(((BODYRecord)record).NAME.value, record);
                     }
 
                     // Add the record to exteriorCELLRecordsByIndices if applicable.

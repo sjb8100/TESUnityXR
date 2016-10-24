@@ -31,7 +31,7 @@ namespace TESUnity.ESM
             public byte unknown1;
             public int gold;
             public byte version;
-            
+
             // 12 byte version
             //public short level;
             //public byte disposition;
@@ -92,7 +92,7 @@ namespace TESUnity.ESM
             {
                 count = reader.ReadLEInt32();
 
-                var bytes = reader.ReadBytes(count);
+                var bytes = reader.ReadBytes(32);
                 name = new char[32];
 
                 for (int i = 0; i < 32; i++)
@@ -185,14 +185,14 @@ namespace TESUnity.ESM
             public float x;
             public float y;
             public float z;
-            public float unknown;
+            public int unknown;
 
             public override void DeserializeData(UnityBinaryReader reader, uint dataSize)
             {
                 x = reader.ReadLESingle();
                 y = reader.ReadLESingle();
                 z = reader.ReadLESingle();
-                unknown = reader.ReadLESingle();
+                unknown = reader.ReadLEInt32();
             }
         }
 
@@ -203,7 +203,7 @@ namespace TESUnity.ESM
             public float z;
             public short duration;
             public char[] id;
-            public float unknown;
+            public short unknown;
 
             public override void DeserializeData(UnityBinaryReader reader, uint dataSize)
             {
@@ -218,7 +218,7 @@ namespace TESUnity.ESM
                 for (int i = 0; i < 32; i++)
                     id[i] = System.Convert.ToChar(bytes[i]);
 
-                unknown = reader.ReadLESingle();
+                unknown = reader.ReadLEInt16();
             }
         }
 
@@ -229,7 +229,7 @@ namespace TESUnity.ESM
             public float z;
             public short duration;
             public char[] id;
-            public float unknown;
+            public short unknown;
 
             public override void DeserializeData(UnityBinaryReader reader, uint dataSize)
             {
@@ -244,7 +244,7 @@ namespace TESUnity.ESM
                 for (int i = 0; i < 32; i++)
                     id[i] = System.Convert.ToChar(bytes[i]);
 
-                unknown = reader.ReadLESingle();
+                unknown = reader.ReadLEInt16();
             }
         }
 
@@ -288,7 +288,7 @@ namespace TESUnity.ESM
 
         public NAMESubRecord NAME;
         public FNAMSubRecord FNAM;
-        public MODLSubRecord MODL;
+        public ANAMSubRecord MODL;
         public RNAMSubRecord RNAM;
         public ANAMSubRecord ANAM;
         public BNAMSubRecord BNAM;
@@ -319,7 +319,7 @@ namespace TESUnity.ESM
                     FNAM = new FNAMSubRecord();
                     return FNAM;
                 case "MODL":
-                    MODL = new MODLSubRecord();
+                    MODL = new ANAMSubRecord();
                     return MODL;
                 case "RNAM":
                     RNAM = new RNAMSubRecord();
@@ -342,21 +342,21 @@ namespace TESUnity.ESM
                 case "FLAG":
                     FLAG = new FLAGSubRecord();
                     return FLAG;
-                //case "NPCO":
-                    //NPCO = new NPCOSubRecord();
-                    //return NPCO;
-               case "AIDT":
+                case "NPCO":
+                    NPCO = new NPCOSubRecord();
+                    return NPCO;
+                case "AIDT":
                     AIDT = new AIDTSubRecord();
                     return AIDT;
                 case "AI_W":
                     AI_W = new AI_WSubRecord();
                     return AI_W;
-                //case "AI_T":
-                    //AI_T = new AI_TSubRecord();
-                    //return AI_T;
-                //case "AI_F":
-                    //AI_F = new AI_FSubRecord();
-                    //return AI_F;
+                case "AI_T":
+                    AI_T = new AI_TSubRecord();
+                    return AI_T;
+                case "AI_F":
+                    AI_F = new AI_FSubRecord();
+                    return AI_F;
                 case "AI_E":
                     AI_E = new AI_ESubRecord();
                     return AI_E;

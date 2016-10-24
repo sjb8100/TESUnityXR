@@ -397,6 +397,32 @@ namespace TESUnity
 			{
 				GameObject modelObj = null;
 
+                if (refCellObjInfo.referencedRecord is NPC_Record)
+                {
+                    var npc = (NPC_Record)refCellObjInfo.referencedRecord;
+                    var bodies = dataReader.MorrowindESMFile.GetRecordsOfType<BODYRecord>();
+
+                    // Prepare the NPC here (for now).
+                    //ANAM = null
+                    //BNAME = b_n_dark elf_m_head_03
+                    //CNAME = Commoner
+                    //KNAME = b_n_dark elf_m_hair_04
+                    //RNAME = Dark Elf
+
+                    if (npc.RNAM.value == "Dark Elf")
+                    {
+                        var list = new List<BODYRecord>();
+                        foreach (var item in bodies)
+                        {
+                            var body = (BODYRecord)item;
+                            if (body.FNAM.value == npc.RNAM.value)
+                                list.Add(body);
+                        }
+                    }
+
+                    var t = "";
+                }
+
 				// If the object has a model, instantiate it.
 				if(refCellObjInfo.modelFilePath != null)
 				{
@@ -445,10 +471,10 @@ namespace TESUnity
 					}
 				}
 			}
-			/*else
+            else
 			{
-				Debug.Log("Unknown Object: " + refCellObjInfo.refObjDataGroup.NAME.value);
-			}*/
+				//Debug.Log("Unknown Object: " + refCellObjInfo.refObjDataGroup.NAME.value);
+			}
 		}
 		private GameObject InstantiateLight(LIGHRecord LIGH, bool indoors)
 		{
@@ -505,6 +531,7 @@ namespace TESUnity
 			ProcessObjectType<BOOKRecord>( tagTarget , refCellObjInfo , "Book");
 			ProcessObjectType<MISCRecord>( tagTarget , refCellObjInfo , "MiscObj");
             ProcessObjectType<CREARecord>( tagTarget , refCellObjInfo , "Creature");
+            ProcessObjectType<BODYRecord>( tagTarget, refCellObjInfo, "NPC");
             ProcessObjectType<NPC_Record>( tagTarget , refCellObjInfo , "NPC");
 		}
 

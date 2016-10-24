@@ -23,12 +23,15 @@
 
         public enum Flag
         {
-            Female = 1, Playabe = 2
+            Female = 1,
+            Playabe = 2
         }
 
         public enum BodyPartType
         {
-            Skin = 0, Clothing = 1, Armor = 2
+            Skin = 0,
+            Clothing = 1,
+            Armor = 2
         }
 
         public byte part;
@@ -47,7 +50,12 @@
 
     public class BODYRecord : Record
     {
+        public class DELESubRecord : INTVSubRecord { }
+
         public BYDTSubRecord BYDT;
+        public NAMESubRecord NAME;
+        public MODLSubRecord MODL;
+        public FNAMSubRecord FNAM;
 
         public override SubRecord CreateUninitializedSubRecord(string subRecordName)
         {
@@ -56,6 +64,15 @@
                 case "BYDT":
                     BYDT = new BYDTSubRecord();
                     return BYDT;
+                case "NAME":
+                    NAME = new NAMESubRecord();
+                    return NAME;
+                case "MODL":
+                    MODL = new MODLSubRecord();
+                    return MODL;
+                case "FNAM":
+                    FNAM = new FNAMSubRecord();
+                    return FNAM;
             }
 
             return null;

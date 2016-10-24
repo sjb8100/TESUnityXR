@@ -1706,7 +1706,19 @@ namespace TESUnity.ESM
     public class NAMESubRecord : STRVSubRecord { }
     public class FNAMSubRecord : STRVSubRecord { }
     public class SNAMSubRecord : STRVSubRecord { }
-    public class ANAMSubRecord : STRVSubRecord { }
+
+
+
+    public class ANAMSubRecord : SubRecord
+    {
+        public string value;
+
+        public override void DeserializeData(UnityBinaryReader reader, UInt32 dataSize)
+        {
+            value = reader.ReadASCIIString((int)dataSize);
+        }
+    }
+
     public class ITEXSubRecord : STRVSubRecord { }
     public class ENAMSubRecord : STRVSubRecord { }
     public class BNAMSubRecord : STRVSubRecord { }
