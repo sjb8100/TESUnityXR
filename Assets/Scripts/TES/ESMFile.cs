@@ -84,6 +84,10 @@ namespace TESUnity
                     var npc = (NPC_Record)record;
                     return npc.MODL != null ? npc.MODL.value : null;
                 }
+                else if (record is BODYRecord)
+                {
+                    return ((BODYRecord)record).MODL.value;
+                }
 				else
 				{
 					return null;

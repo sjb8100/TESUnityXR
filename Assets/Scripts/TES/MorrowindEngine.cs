@@ -313,8 +313,8 @@ namespace TESUnity
 
 				if(refObjInfo.referencedRecord != null)
 				{
-					var modelFileName = ESM.RecordUtils.GetModelFileName(refObjInfo.referencedRecord);
-
+                    var modelFileName = ESM.RecordUtils.GetModelFileName(refObjInfo.referencedRecord);
+                    
 					// If the model file name is valid, store the model file path.
 					if((modelFileName != null) && (modelFileName != ""))
 					{
@@ -396,32 +396,6 @@ namespace TESUnity
 			if(refCellObjInfo.referencedRecord != null)
 			{
 				GameObject modelObj = null;
-
-                if (refCellObjInfo.referencedRecord is NPC_Record)
-                {
-                    var npc = (NPC_Record)refCellObjInfo.referencedRecord;
-                    var bodies = dataReader.MorrowindESMFile.GetRecordsOfType<BODYRecord>();
-
-                    // Prepare the NPC here (for now).
-                    //ANAM = null
-                    //BNAME = b_n_dark elf_m_head_03
-                    //CNAME = Commoner
-                    //KNAME = b_n_dark elf_m_hair_04
-                    //RNAME = Dark Elf
-
-                    if (npc.RNAM.value == "Dark Elf")
-                    {
-                        var list = new List<BODYRecord>();
-                        foreach (var item in bodies)
-                        {
-                            var body = (BODYRecord)item;
-                            if (body.FNAM.value == npc.RNAM.value)
-                                list.Add(body);
-                        }
-                    }
-
-                    var t = "";
-                }
 
 				// If the object has a model, instantiate it.
 				if(refCellObjInfo.modelFilePath != null)
