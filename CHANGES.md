@@ -1,5 +1,12 @@
 #TESUnity Changelog
 
+## Version 0.7 - 03/xx/2018
+### Added
+- Lightweight Scriptable Render Pipeline Support
+
+### Changed
+- Force Vulkan on Linux as first API (OpenGL as Fallback)
+
 ## Version 0.6 - 03/14/2018
 ### Added
 - Updated to Unity 2018.1b10

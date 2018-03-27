@@ -7,6 +7,7 @@
     "com.unity.standardevents": "exclude",
     "com.unity.purchasing": "exclude",
     "com.unity.render-pipelines.lightweight": "1.1.2-preview",
-    "com.unity.shadergraph": "1.1.2-preview"
+    "com.unity.shadergraph": "1.1.2-preview",
+    "com.unity.render-pipelines.high-definition": "1.1.2-preview"
   }
 }

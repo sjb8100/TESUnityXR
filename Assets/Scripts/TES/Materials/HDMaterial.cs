@@ -8,7 +8,15 @@ namespace TESUnity
     /// </summary>
     public class HDMaterial : MWBaseMaterial
     {
-        public HDMaterial(TextureManager textureManager) : base(textureManager) { }
+        private Material m_HDMaterial;
+        private Material m_CutoutMaterial;
+
+        public HDMaterial(TextureManager textureManager)
+            : base(textureManager)
+        {
+            m_HDMaterial = Resources.Load<Material>("Materials/HD-Standard");
+            m_CutoutMaterial = Resources.Load<Material>("Materials/HD-Cutout");
+        }
 
         public override Material BuildMaterialFromProperties(MWMaterialProps mp)
         {
@@ -27,14 +35,15 @@ namespace TESUnity
 
                 if (mp.textures.mainFilePath != null)
                 {
-                    material.mainTexture = m_textureManager.LoadTexture(mp.textures.mainFilePath);
+                    var texture = m_textureManager.LoadTexture(mp.textures.mainFilePath);
+                    material.SetTexture("_BaseColorMap", texture);
 
-                    //if (TESUnity.instance.generateNormalMap)
-                        //material.SetTexture("_BumpMap", GenerateNormalMap((Texture2D)material.mainTexture, TESUnity.instance.normalGeneratorIntensity));
+                    if (TESUnity.instance.generateNormalMap)
+                        material.SetTexture("_NormalMap", GenerateNormalMap((Texture2D)texture, TESUnity.instance.normalGeneratorIntensity));
                 }
 
                 //if (mp.textures.bumpFilePath != null)
-                    //material.SetTexture("_BumpMap", m_textureManager.LoadTexture(mp.textures.bumpFilePath));
+                    //material.SetTexture("_NormalMap", m_textureManager.LoadTexture(mp.textures.bumpFilePath));
 
                 m_existingMaterials[mp] = material;
             }
@@ -48,7 +57,7 @@ namespace TESUnity
 
         public override Material BuildMaterialBlended(ur.BlendMode sourceBlendMode, ur.BlendMode destinationBlendMode)
         {
-            Material material = BuildMaterial();
+            Material material = BuildMaterialTested();
             //material.SetInt("_SrcBlend", (int)sourceBlendMode);
             //material.SetInt("_DstBlend", (int)destinationBlendMode);
             return material;
@@ -57,6 +66,7 @@ namespace TESUnity
         public override Material BuildMaterialTested(float cutoff = 0.5f)
         {
             Material material = BuildMaterial();
+            material.CopyPropertiesFromMaterial(m_CutoutMaterial);
             //material.SetFloat("_AlphaCutoff", cutoff);
             return material;
         }

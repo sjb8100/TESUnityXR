@@ -51,6 +51,10 @@ namespace TESUnity
             {
                 _mwMaterial = new LightweightMaterial(textureManager);
             }
+            else if (tes.renderPath == TESUnity.RendererType.HDSRP)
+            {
+                _mwMaterial = new HDMaterial(textureManager);
+            }
             else
             {
                 switch (tes.materialType)

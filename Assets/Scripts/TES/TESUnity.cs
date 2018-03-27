@@ -2,6 +2,7 @@
 using System.IO;
 using TESUnity.UI;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.HDPipeline;
 using UnityEngine.Experimental.Rendering.LightweightPipeline;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.PostProcessing;
@@ -30,7 +31,7 @@ namespace TESUnity
 
         public enum RendererType
         {
-            Forward, Deferred, LightweightSRP
+            Forward, Deferred, LightweightSRP, HDSRP
         }
 
         #region Inspector-set Members
@@ -55,6 +56,7 @@ namespace TESUnity
         public float cameraFarClip = 500.0f;
         public SRPQuality srpQuality = SRPQuality.Medium;
         public LightweightPipelineAsset[] lightweightAssets;
+        public HDRenderPipelineAsset hdAsset;
         public float renderScale = 1.0f;
 
         [Header("Lighting")]
@@ -156,6 +158,11 @@ namespace TESUnity
                 GraphicsSettings.renderPipelineAsset = asset;
 
                 // Only this mode is compatible with SRP.
+                waterQuality = Water.WaterMode.Simple;
+            }
+            else if (renderPath == RendererType.HDSRP)
+            {
+                GraphicsSettings.renderPipelineAsset = hdAsset;
                 waterQuality = Water.WaterMode.Simple;
             }
 

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Experimental.Rendering.HDPipeline;
 using UnityEngine.Experimental.Rendering.LightweightPipeline;
 using UnityEngine.Rendering;
 
@@ -122,6 +123,11 @@ public static class GameObjectUtils
         {
             terrain.materialType = Terrain.MaterialType.Custom;
             terrain.materialTemplate = Resources.Load<Material>("Materials/Lightweight-DefaultTerrain");
+        }
+        else if (GraphicsSettings.renderPipelineAsset is HDRenderPipelineAsset)
+        {
+            terrain.materialType = Terrain.MaterialType.Custom;
+            terrain.materialTemplate = Resources.Load<Material>("Materials/HD-Terrain"); // Not the good material for now.
         }
         else
             terrain.materialType = Terrain.MaterialType.BuiltInLegacyDiffuse;
