@@ -37,10 +37,10 @@ namespace TESUnity
                 {
                     material.mainTexture = m_textureManager.LoadTexture(mp.textures.mainFilePath);
 
-                    if (TESUnity.instance.generateNormalMap)
+                    if (TESManager.instance.generateNormalMap)
                     {
                         material.EnableKeyword("_NORMALMAP");
-                        material.SetTexture("_BumpMap", GenerateNormalMap((Texture2D)material.mainTexture, TESUnity.instance.normalGeneratorIntensity));
+                        material.SetTexture("_BumpMap", GenerateNormalMap((Texture2D)material.mainTexture, TESManager.instance.normalGeneratorIntensity));
                     }
                 }
                 else

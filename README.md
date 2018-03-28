@@ -33,16 +33,18 @@ The first step is to rename the `config.ini.dist` file to `config.ini`.
 | PostProcessQuality | A value from 0 to 3 (0 is disabled) | 
 | WaterBackSideTransparent | `True` or `False` |
 |**Rendering** | |
-| Shader  | `Unlit` or `Standard` or `Default` or `Bumped` |
-| RenderPath  | `Forward` or `Deferred` |
+| Shader  | `PBR` or `Simple` or `Unlit` or `Default` |
+| RenderPath  | `Forward` / `Deferred` / `Lightwight` |
 | CameraFarClip | a value from 10 to 10000 |
 | WaterQuality | a value from 0 to 2 |
+| SRPQuality | a value from 0 to 2 |
+| RenderScale | A value from 0.1 to 2.0 | 
 |**VR** | |
 | FollowHeadDirection | `True` or `False` |
 | RoomScale | `True` or `False` |
 | ForceControllers | `True` or `False` |
 | XRVignette | `True` or `False` |
-| RenderScale | A value from 0.1 to 2.0 | 
+
 |**Debug** | |
 | CreaturesEnabled | `True` or `False` |
 

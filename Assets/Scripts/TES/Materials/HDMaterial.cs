@@ -38,8 +38,8 @@ namespace TESUnity
                     var texture = m_textureManager.LoadTexture(mp.textures.mainFilePath);
                     material.SetTexture("_BaseColorMap", texture);
 
-                    if (TESUnity.instance.generateNormalMap)
-                        material.SetTexture("_NormalMap", GenerateNormalMap((Texture2D)texture, TESUnity.instance.normalGeneratorIntensity));
+                    if (TESManager.instance.generateNormalMap)
+                        material.SetTexture("_NormalMap", GenerateNormalMap((Texture2D)texture, TESManager.instance.normalGeneratorIntensity));
                 }
 
                 //if (mp.textures.bumpFilePath != null)

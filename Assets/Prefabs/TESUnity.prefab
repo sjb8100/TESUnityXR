@@ -47,8 +47,9 @@ MonoBehaviour:
   playMusic: 1
   enableLog: 0
   waterQuality: 0
+  useStaticBatching: 1
   materialType: 1
-  renderPath: 2
+  renderPath: 3
   cameraFarClip: 500
   srpQuality: 2
   lightweightAssets:

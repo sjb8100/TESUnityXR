@@ -11,7 +11,7 @@ namespace TESUnity.Components
         private void Start()
         {
 #if UNITY_EDITOR
-            if (TESUnity.instance._bypassINIConfig)
+            if (TESManager.instance._bypassINIConfig)
                 return;
 #endif
             UpdateEffects();
@@ -19,20 +19,20 @@ namespace TESUnity.Components
 
         public void UpdateEffects()
         {
-            var settings = TESUnity.instance;
+            var settings = TESManager.instance;
             var layer = GetComponent<PostProcessLayer>();
             var volume = FindObjectOfType<PostProcessVolume>();
             var profile = volume.profile;
             var xrEnabled = XRSettings.enabled;
 
-            if (settings.postProcessingQuality == TESUnity.PostProcessingQuality.Low)
+            if (settings.postProcessingQuality == TESManager.PostProcessingQuality.Low)
             {
                 volume.enabled = false;
                 layer.antialiasingMode = PostProcessLayer.Antialiasing.None;
                 return;
             }
 
-            if (settings.postProcessingQuality == TESUnity.PostProcessingQuality.Medium)
+            if (settings.postProcessingQuality == TESManager.PostProcessingQuality.Medium)
             {
                 UpdateEffect<Bloom>(profile, (bloom) =>
                 {
@@ -48,7 +48,7 @@ namespace TESUnity.Components
                 layer.fastApproximateAntialiasing.fastMode = true;
                 layer.antialiasingMode = PostProcessLayer.Antialiasing.FastApproximateAntialiasing;
             }
-            else if (settings.postProcessingQuality == TESUnity.PostProcessingQuality.High)
+            else if (settings.postProcessingQuality == TESManager.PostProcessingQuality.High)
             {
                 UpdateEffect<Bloom>(profile, (bloom) =>
                 {
@@ -83,7 +83,7 @@ namespace TESUnity.Components
 
                 UpdateEffect<ScreenSpaceReflections>(profile, (ssr) =>
                 {
-                    if (settings.postProcessingQuality == TESUnity.PostProcessingQuality.High)
+                    if (settings.postProcessingQuality == TESManager.PostProcessingQuality.High)
                         ssr.preset.value = ScreenSpaceReflectionPreset.Medium;
                 });
 

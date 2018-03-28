@@ -374,9 +374,9 @@ namespace TESUnity
             lightComponent.color = new Color32(LIGH.LHDT.red, LIGH.LHDT.green, LIGH.LHDT.blue, 255);
             lightComponent.intensity = 1.5f;
             lightComponent.bounceIntensity = 0f;
-            lightComponent.shadows = TESUnity.instance.renderLightShadows ? LightShadows.Soft : LightShadows.None;
+            lightComponent.shadows = TESManager.instance.renderLightShadows ? LightShadows.Soft : LightShadows.None;
 
-            if (!indoors && !TESUnity.instance.renderExteriorCellLights) // disabling exterior cell lights because there is no day/night cycle
+            if (!indoors && !TESManager.instance.renderExteriorCellLights) // disabling exterior cell lights because there is no day/night cycle
             {
                 lightComponent.enabled = false;
             }
@@ -611,7 +611,6 @@ namespace TESUnity
             var terrainGameObject = GameObjectUtils.CreateTerrain(heights, heightRange / Convert.meterInMWUnits, heightSampleDistance, splatPrototypes, alphaMap, terrainPosition);
 
             terrainGameObject.transform.parent = parent.transform;
-            terrainGameObject.isStatic = true;
         }
 
         private void DestroyExteriorCell(Vector2i indices)

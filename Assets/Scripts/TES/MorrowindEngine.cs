@@ -7,6 +7,7 @@ using TESUnity.ESM;
 using TESUnity.Inputs;
 using TESUnity.UI;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityStandardAssets.Water;
 
 namespace TESUnity
@@ -70,26 +71,40 @@ namespace TESUnity
             temporalLoadBalancer = new TemporalLoadBalancer();
             cellManager = new CellManager(dataReader, textureManager, nifManager, temporalLoadBalancer);
 
+            var tes = TESManager.instance;
+
             RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
-            RenderSettings.ambientIntensity = TESUnity.instance.ambientIntensity;
+            RenderSettings.ambientIntensity = tes.ambientIntensity;
 
             sunObj = GameObjectUtils.CreateDirectionalLight(Vector3.zero, Quaternion.Euler(new Vector3(50, 330, 0)));
-            sunObj.GetComponent<Light>().shadows = TESUnity.instance.renderSunShadows ? LightShadows.Soft : LightShadows.None;
+            sunObj.GetComponent<Light>().shadows = tes.renderSunShadows ? LightShadows.Soft : LightShadows.None;
             sunObj.SetActive(false);
 
-            if (TESUnity.instance.dayNightCycle)
+            if (tes.dayNightCycle)
                 sunObj.AddComponent<DayNightCycle>();
 
-            waterObj = GameObject.Instantiate(TESUnity.instance.waterPrefab);
+            waterObj = GameObject.Instantiate(tes.waterPrefab);
             waterObj.SetActive(false);
 
             var water = waterObj.GetComponent<Water>();
-            water.waterMode = TESUnity.instance.waterQuality;
+            water.waterMode = tes.waterQuality;
 
-            if (!TESUnity.instance.waterBackSideTransparent)
+            if (GraphicsSettings.renderPipelineAsset != null)
+            {
+                var renderer = water.GetComponent<MeshRenderer>();
+                renderer.sharedMaterial.SetColor("_RefrColor", new Color(0.58f, 0.7f, 1.0f));
+            }
+
+            if (!tes.waterBackSideTransparent)
             {
                 var side = waterObj.transform.GetChild(0);
                 var sideMaterial = side.GetComponent<Renderer>().sharedMaterial;
+
+                if (tes.renderPath == TESManager.RendererType.LightweightSRP)
+                    sideMaterial.shader = Shader.Find("LightweightPipeline/Standard (Simple Lighting)");
+                else if (tes.renderPath == TESManager.RendererType.HDSRP)
+                    sideMaterial.shader = Shader.Find("HDRenderPipeline/Lit");
+
                 sideMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
                 sideMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
                 sideMaterial.SetInt("_ZWrite", 1);

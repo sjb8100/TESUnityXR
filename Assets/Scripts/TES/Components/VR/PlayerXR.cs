@@ -47,9 +47,9 @@ namespace TESUnity.Components.VR
                 return;
             }
 
-            var renderScale = TESUnity.instance.renderScale;
+            var renderScale = TESManager.instance.renderScale;
             if (renderScale > 0 && renderScale <= 2)
-                XRSettings.eyeTextureResolutionScale = TESUnity.instance.renderScale;
+                XRSettings.eyeTextureResolutionScale = TESManager.instance.renderScale;
 
             var uiManager = FindObjectOfType<UIManager>();
 
@@ -85,13 +85,13 @@ namespace TESUnity.Components.VR
             Camera.main.nearClipPlane = 0.1f;
 
             // Setup RoomScale/Sitted mode.
-            var trackingSpaceType = TESUnity.instance.roomScale ? TrackingSpaceType.RoomScale : TrackingSpaceType.Stationary;
+            var trackingSpaceType = TESManager.instance.roomScale ? TrackingSpaceType.RoomScale : TrackingSpaceType.Stationary;
             XRDevice.SetTrackingSpaceType(trackingSpaceType);
             if (trackingSpaceType == TrackingSpaceType.RoomScale)
                 transform.GetChild(0).localPosition = Vector3.zero;
 
             // Detect controllers
-            var controllers = TESUnity.instance.forceControllers ? 2 : 0;
+            var controllers = TESManager.instance.forceControllers ? 2 : 0;
 
             // Try to detect controllers
             if (controllers == 0)
@@ -115,7 +115,7 @@ namespace TESUnity.Components.VR
             }
 
             // Confort
-            if (TESUnity.instance.useXRVignette)
+            if (TESManager.instance.useXRVignette)
                 gameObject.AddComponent<XRVignetteOverlay>();
 
             RecenterOrientationAndPosition();
@@ -134,13 +134,13 @@ namespace TESUnity.Components.VR
             var prevPos = root.position;
             var prevRot = root.rotation;
 
-            if (TESUnity.instance.followHeadDirection)
+            if (TESManager.instance.followHeadDirection)
             {
                 _transform.rotation = Quaternion.Euler(0.0f, centerEye.rotation.eulerAngles.y, 0.0f);
                 root.rotation = prevRot;
             }
 
-            if (TESUnity.instance.roomScale)
+            if (TESManager.instance.roomScale)
             {
                 //_transform.position = new Vector3(centerEye.position.x, 0.0f, centerEye.position.z);
                 root.position = prevPos;

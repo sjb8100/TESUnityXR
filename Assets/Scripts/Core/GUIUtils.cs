@@ -23,49 +23,49 @@ public static class GUIUtils
     {
         get
         {
-            return TESUnity.TESUnity.instance.UIBackgroundImg;
+            return TESUnity.TESManager.instance.UIBackgroundImg;
         }
     }
     public static Sprite checkmarkImg
     {
         get
         {
-            return TESUnity.TESUnity.instance.UICheckmarkImg;
+            return TESUnity.TESManager.instance.UICheckmarkImg;
         }
     }
     public static Sprite dropdownArrowImg
     {
         get
         {
-            return TESUnity.TESUnity.instance.UIDropdownArrowImg;
+            return TESUnity.TESManager.instance.UIDropdownArrowImg;
         }
     }
     public static Sprite inputFieldBackgroundImg
     {
         get
         {
-            return TESUnity.TESUnity.instance.UIInputFieldBackgroundImg;
+            return TESUnity.TESManager.instance.UIInputFieldBackgroundImg;
         }
     }
     public static Sprite knobImg
     {
         get
         {
-            return TESUnity.TESUnity.instance.UIKnobImg;
+            return TESUnity.TESManager.instance.UIKnobImg;
         }
     }
     public static Sprite maskImg
     {
         get
         {
-            return TESUnity.TESUnity.instance.UIMaskImg;
+            return TESUnity.TESManager.instance.UIMaskImg;
         }
     }
     public static Sprite spriteImg
     {
         get
         {
-            return TESUnity.TESUnity.instance.UISpriteImg;
+            return TESUnity.TESManager.instance.UISpriteImg;
         }
     }
 

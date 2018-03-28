@@ -47,7 +47,7 @@ namespace TESUnity.Components.Records
                 {
                     gameObject.AddComponent<BoxCollider>().size *= 0.5f; //very weak-- adding a box collider to light objects so we can interact with them
                                                                          //adding kinematic rigidbodies to static colliders prevents the physics collision tree from being rebuilt, which impacts performance
-                    if (TESUnity.instance.useKinematicRigidbodies)
+                    if (TESManager.instance.useKinematicRigidbodies)
                         gameObject.AddComponent<Rigidbody>().isKinematic = true;
                 }
                 StartCoroutine(ConfigureLightComponent());
@@ -78,7 +78,7 @@ namespace TESUnity.Components.Records
                 var fire = Utils.ContainsBitFlags((uint)lightData.flags, (uint)LightData.LightFlags.Fire);
                 var animated = flicker || flickerSlow || pulse || pulseSlow || fire;
 
-                if (animated && TESUnity.instance.animateLights)
+                if (animated && TESManager.instance.animateLights)
                 {
                     var lightAnim = lightData.lightComponent.gameObject.AddComponent<LightAnim>();
                     if (flicker)

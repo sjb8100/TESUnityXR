@@ -65,15 +65,15 @@ namespace TESUnity
             _rigidbody = GetComponent<Rigidbody>();
 
             // Setup the camera
-            var tes = TESUnity.instance;
+            var tes = TESManager.instance;
             var camera = Camera.main;
 
-            if (tes.renderPath == TESUnity.RendererType.Forward)
+            if (tes.renderPath == TESManager.RendererType.Forward)
             {
                 camera.renderingPath = RenderingPath.Forward;
                 camera.allowMSAA = true;
             }
-            else if (tes.renderPath == TESUnity.RendererType.Deferred)
+            else if (tes.renderPath == TESManager.RendererType.Deferred)
             {
                 camera.renderingPath = RenderingPath.DeferredShading;
                 camera.allowMSAA = false;

@@ -5,11 +5,17 @@ PlayMusic = True
 MorrowindDataPath = D:\Jeux\SteamLibrary\steamapps\common\Morrowind\Data Files
 
 [Rendering]
+; Forward, Deferred or Lightweight
 RenderPath = Deferred
-Shader = Standard
+; PBR, Simple, Unlit
+Shader = PBR
 CameraFarClip = 500
 # 0 = Normal / 1 = Reflective / 2 = Refractive
 WaterQuality = 0
+; A value between 0.1 and 4 (> 1 = something like super sampling)
+RenderScale = 1.0
+; If Lightweight is defined, controls the quality. 0 = Low / 1 = Medium / 2 = High
+SRPQuality = 2
 
 [Lighting]
 AnimateLights = True
@@ -18,7 +24,7 @@ LightShadows = False
 RenderExteriorCellLights = True
 DayNightCycle = True
 GenerateNormalMap = True
-NormalGeneratorIntensity = 0.75
+NormalGeneratorIntensity = 5
 
 [Effects]
 # 0 = Disabled / 1 = FXAA / 2 = SMAA (not supported in VR) / 3 = TAA
@@ -32,7 +38,6 @@ FollowHeadDirection = True
 RoomScale = False
 ForceControllers = True
 XRVignette = False
-RenderScale  = 1.0
 
 [Debug]
 CreaturesEnabled = False

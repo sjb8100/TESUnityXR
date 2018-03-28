@@ -183,9 +183,9 @@ namespace TESUnity
 					case "LAND":
 						return new LANDRecord();
                     case "CREA":
-                        return TESUnity.instance.creaturesEnabled ? new CREARecord() : null;
+                        return TESManager.instance.creaturesEnabled ? new CREARecord() : null;
                     case "NPC_":
-                        return TESUnity.instance.npcsEnabled ? new NPC_Record() : null;
+                        return TESManager.instance.npcsEnabled ? new NPC_Record() : null;
 					default:
                         Debug.LogWarning("Unsupported ESM record type: " + recordName);
 						return null;

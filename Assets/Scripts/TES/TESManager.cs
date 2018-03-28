@@ -10,9 +10,9 @@ using UnityStandardAssets.Water;
 
 namespace TESUnity
 {
-    public class TESUnity : MonoBehaviour
+    public class TESManager : MonoBehaviour
     {
-        public static TESUnity instance;
+        public static TESManager instance;
 
         public enum MWMaterialType
         {
@@ -34,6 +34,8 @@ namespace TESUnity
             Forward, Deferred, LightweightSRP, HDSRP
         }
 
+        public const string Version = "0.7.1";
+
         #region Inspector-set Members
 
 #if UNITY_EDITOR
@@ -49,6 +51,7 @@ namespace TESUnity
         public bool playMusic = false;
         public bool enableLog = false;
         public Water.WaterMode waterQuality = Water.WaterMode.Simple;
+        public bool useStaticBatching = false;
 
         [Header("Rendering")]
         public MWMaterialType materialType = MWMaterialType.StandardLighting;
@@ -165,6 +168,8 @@ namespace TESUnity
                 GraphicsSettings.renderPipelineAsset = hdAsset;
                 waterQuality = Water.WaterMode.Simple;
             }
+            else
+                GraphicsSettings.renderPipelineAsset = null;
 
             if (UIManager == null)
             {
