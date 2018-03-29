@@ -205,8 +205,8 @@ namespace TESUnity
             cellObjects.Clear();
         }
 
-        private const int cellRadius = 4;
-        private const int detailRadius = 3;
+        public static int cellRadius = 4;
+        public static int detailRadius = 3;
         private const string defaultLandTextureFilePath = "textures/_land_default.dds";
 
         private MorrowindDataReader dataReader;

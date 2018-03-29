@@ -1,6 +1,7 @@
 #TESUnity Changelog
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## Version 0.7 - 03/xx/2018
 ### Added
 - Lightweight Scriptable Render Pipeline Support
@@ -8,6 +9,15 @@
 ### Changed
 - Force Vulkan on Linux as first API (OpenGL as Fallback)
 =======
+=======
+## Version 0.7.1 - 03/28/2018
+### Added
+- Initial Teleportation system (still WIP)
+
+### Fixed
+- Builds start in VR directly 
+
+>>>>>>> xr
 ## Version 0.7 - 03/27/2018
 ### Added
 - Lightweight Render Pipeline for better performances

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ea27c386869e7674e9bd6a6eb3987754
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_LightweightShaderPBR: {instanceID: 0}
+  - m_LightweightShaderSimple: {instanceID: 0}
+  - m_UnlitShader: {fileID: 10751, guid: 0000000000000000f000000000000000, type: 0}
+  - m_HDShader: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

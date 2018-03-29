@@ -50,14 +50,6 @@ namespace Demonixis.Toolbox.XR.Editor
             }
         }
 
-        [MenuItem("Demonixis/VR/Reset Input Binding", false, 100000)]
-        public static void ResetInputBinding()
-        {
-            AllowOverride = true;
-            BindAxisAndButtons();
-            AllowOverride = false;
-        }
-
         public static void BindButton(string buttonName, string buttonID)
         {
             BindRawAxis(new Axis() { name = buttonName, positiveButton = buttonID, type = 0 });

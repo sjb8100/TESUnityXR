@@ -61,6 +61,7 @@ The first step is to rename the `config.ini.dist` file to `config.ini`.
 | Toggle Flight Mode | Tab | Nothing | Nohtin |
 | Toggle Lantern | L | Nothing | Right thumbstick |
 | Free Cursor Lock | Backquote | Nothing | Nothing |
+| Teleport | Nothing | Nothing | Grip |
 
 \* *It uses the AZERTY mapping for French users.*
 

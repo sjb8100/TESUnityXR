@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4217257255336676}
   - component: {fileID: 33728127466798580}
   - component: {fileID: 23047403985530178}
+  - component: {fileID: 114776060506500310}
   m_Layer: 4
   m_Name: Underwater
   m_TagString: Untagged
@@ -123,7 +124,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 7350b65a6431f604a8496c39db1ac9c5, type: 2}
+  - {fileID: 2100000, guid: 52b7d70b1de7c4ce09662b77c14d9fda, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -178,3 +179,14 @@ MonoBehaviour:
   refractLayers:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114776060506500310
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1377299739101976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea27c386869e7674e9bd6a6eb3987754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

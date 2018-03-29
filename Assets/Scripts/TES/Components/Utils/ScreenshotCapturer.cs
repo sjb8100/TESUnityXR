@@ -2,7 +2,7 @@
 using System.IO;
 using UnityEngine;
 
-namespace TESUnity.Components
+namespace TESUnity.Components.Utilities
 {
     public sealed class ScreenshotCapturer : MonoBehaviour
     {

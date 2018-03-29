@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TESUnity.Inputs;
 using TESUnity.UI;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SpatialTracking;
 using UnityEngine.XR;
 
@@ -19,7 +20,6 @@ namespace TESUnity.Components.VR
         private Transform _transform = null;
         private RectTransform _canvas = null;
         private Transform _pivotCanvas = null;
-        private RectTransform _hud = null;
 
         [SerializeField]
         private bool _isSpectator = false;
@@ -34,9 +34,10 @@ namespace TESUnity.Components.VR
         /// </summary>
         private void Start()
         {
+            var trackedPoseDrivers = GetComponentsInChildren<TrackedPoseDriver>(true);
+
             if (!XRSettings.enabled)
             {
-                var trackedPoseDrivers = GetComponentsInChildren<TrackedPoseDriver>(true);
                 foreach (var driver in trackedPoseDrivers)
                 {
                     Destroy(driver.transform.GetChild(0).gameObject);
@@ -47,9 +48,11 @@ namespace TESUnity.Components.VR
                 return;
             }
 
-            var renderScale = TESManager.instance.renderScale;
+            var manager = TESManager.instance;
+            var renderScale = manager.renderScale;
+
             if (renderScale > 0 && renderScale <= 2)
-                XRSettings.eyeTextureResolutionScale = TESManager.instance.renderScale;
+                XRSettings.eyeTextureResolutionScale = manager.renderScale;
 
             var uiManager = FindObjectOfType<UIManager>();
 
@@ -106,7 +109,6 @@ namespace TESUnity.Components.VR
 
             if (controllers == 2)
             {
-                var trackedPoseDrivers = GetComponentsInChildren<TrackedPoseDriver>(true);
                 foreach (var driver in trackedPoseDrivers)
                 {
                     driver.transform.parent = _camTransform.parent;

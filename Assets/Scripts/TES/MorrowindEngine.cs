@@ -23,7 +23,7 @@ namespace TESUnity
         private const float playerHeight = 2;
         private const float playerRadius = 0.4f;
         private const float desiredWorkTimePerFrame = 1.0f / 200;
-        private const int cellRadiusOnLoad = 2;
+        public static int cellRadiusOnLoad = 2;
         private CELLRecord _currentCell;
         private UIManager _uiManager;
         private GameObject sunObj;
@@ -98,12 +98,12 @@ namespace TESUnity
             if (!tes.waterBackSideTransparent)
             {
                 var side = waterObj.transform.GetChild(0);
-                var sideMaterial = side.GetComponent<Renderer>().sharedMaterial;
+                var sideRenderer = side.GetComponent<Renderer>();
+                var sideMaterial = sideRenderer.sharedMaterial;
 
-                if (tes.renderPath == TESManager.RendererType.LightweightSRP)
-                    sideMaterial.shader = Shader.Find("LightweightPipeline/Standard (Simple Lighting)");
-                else if (tes.renderPath == TESManager.RendererType.HDSRP)
-                    sideMaterial.shader = Shader.Find("HDRenderPipeline/Lit");
+#if UNITY_EDITOR
+                sideMaterial = sideRenderer.material;
+#endif
 
                 sideMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
                 sideMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);

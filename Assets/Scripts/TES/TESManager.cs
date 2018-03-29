@@ -42,6 +42,8 @@ namespace TESUnity
         [Header("Editor Only")]
         [SerializeField]
         public bool _bypassINIConfig = false;
+        [SerializeField]
+        private bool _allowChangeCellInRealtime = false;
 #endif
 
         [Header("Global")]
@@ -52,6 +54,11 @@ namespace TESUnity
         public bool enableLog = false;
         public Water.WaterMode waterQuality = Water.WaterMode.Simple;
         public bool useStaticBatching = false;
+
+        [Header("Optimizations")]
+        public int cellRadius = 4;
+        public int cellDetailRadius = 3;
+        public int cellRadiusOnLoad = 2;
 
         [Header("Rendering")]
         public MWMaterialType materialType = MWMaterialType.StandardLighting;
@@ -179,6 +186,10 @@ namespace TESUnity
                     throw new UnityException("UI Manager is missing");
             }
 
+            CellManager.cellRadius = cellRadius;
+            CellManager.detailRadius = cellDetailRadius;
+            MorrowindEngine.cellRadiusOnLoad = cellRadiusOnLoad;
+
             MWDataReader = new MorrowindDataReader(dataPath);
             MWEngine = new MorrowindEngine(MWDataReader, UIManager);
 
@@ -229,6 +240,15 @@ namespace TESUnity
             {
                 musicPlayer.Update();
             }
+
+#if UNITY_EDITOR
+            if (_allowChangeCellInRealtime)
+            {
+                CellManager.cellRadius = cellRadius;
+                CellManager.detailRadius = cellDetailRadius;
+                MorrowindEngine.cellRadiusOnLoad = cellRadiusOnLoad;
+            }
+#endif
         }
 
         private void TestAllCells(string resultsFilePath)
@@ -248,7 +268,7 @@ namespace TESUnity
 
                         writer.Write("Pass: ");
                     }
-                    catch (Exception exception)
+                    catch (Exception)
                     {
                         writer.Write("Fail: ");
                     }

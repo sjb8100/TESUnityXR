@@ -96,14 +96,14 @@ namespace TESUnity
                                 }
                             }
                             break;
-                        case "AnimateLights": tes.animateLights = ParseBool(value, tes.animateLights); break;
+                        case "AnimateLights": ParseBool(value, ref tes.animateLights); break;
                         case "MorrowindDataPath": path = value; break;
-                        case "FollowHeadDirection": tes.followHeadDirection = ParseBool(value, tes.followHeadDirection); break;
-                        case "SunShadows": tes.renderSunShadows = ParseBool(value, tes.renderSunShadows); break;
-                        case "LightShadows": tes.renderLightShadows = ParseBool(value, tes.renderLightShadows); break;
-                        case "PlayMusic": tes.playMusic = ParseBool(value, tes.playMusic); break;
-                        case "RenderExteriorCellLights": tes.renderExteriorCellLights = ParseBool(value, tes.renderExteriorCellLights); break;
-                        case "WaterBackSideTransparent": tes.waterBackSideTransparent = ParseBool(value, tes.waterBackSideTransparent); break;
+                        case "FollowHeadDirection": ParseBool(value, ref tes.followHeadDirection); break;
+                        case "SunShadows":ParseBool(value, ref tes.renderSunShadows); break;
+                        case "LightShadows": ParseBool(value, ref tes.renderLightShadows); break;
+                        case "PlayMusic": ParseBool(value, ref tes.playMusic); break;
+                        case "RenderExteriorCellLights": ParseBool(value, ref tes.renderExteriorCellLights); break;
+                        case "WaterBackSideTransparent": ParseBool(value, ref tes.waterBackSideTransparent); break;
                         case "RenderPath":
                             if (value == "Forward")
                                 tes.renderPath = TESManager.RendererType.Forward;
@@ -121,11 +121,11 @@ namespace TESUnity
                                 default: tes.materialType = TESManager.MWMaterialType.StandardLighting; break;
                             }
                             break;
-                        case "RoomScale": tes.roomScale = ParseBool(value, tes.roomScale); break;
-                        case "ForceControllers": tes.forceControllers = ParseBool(value, tes.forceControllers); break;
-                        case "CreaturesEnabled": tes.creaturesEnabled = ParseBool(value, tes.creaturesEnabled); break;
-                        case "CameraFarClip": tes.cameraFarClip = ParseFloat(value, tes.cameraFarClip); break;
-                        case "XRVignette": tes.useXRVignette = ParseBool(value, tes.useXRVignette); break;
+                        case "RoomScale": ParseBool(value, ref tes.roomScale); break;
+                        case "ForceControllers": ParseBool(value, ref tes.forceControllers); break;
+                        case "CreaturesEnabled": ParseBool(value, ref tes.creaturesEnabled); break;
+                        case "CameraFarClip": ParseFloat(value, ref tes.cameraFarClip, 5); break;
+                        case "XRVignette": ParseBool(value, ref tes.useXRVignette); break;
                         case "WaterQuality":
                             {
                                 int result;
@@ -137,10 +137,10 @@ namespace TESUnity
                             }
                             break;
 
-                        case "DayNightCycle": tes.dayNightCycle = ParseBool(value, tes.dayNightCycle); break;
-                        case "GenerateNormalMap": tes.generateNormalMap = ParseBool(value, tes.generateNormalMap); break;
-                        case "NormalGeneratorIntensity": tes.normalGeneratorIntensity = ParseFloat(value, tes.normalGeneratorIntensity); break;
-                        case "RenderScale": tes.renderScale = ParseFloat(value, tes.renderScale); break;
+                        case "DayNightCycle": ParseBool(value, ref tes.dayNightCycle); break;
+                        case "GenerateNormalMap": ParseBool(value, ref tes.generateNormalMap); break;
+                        case "NormalGeneratorIntensity": ParseFloat(value, ref tes.normalGeneratorIntensity); break;
+                        case "RenderScale": ParseFloat(value, ref tes.renderScale, 0.1f, 4.0f); break;
                         case "SRPQuality":
                             {
                                 int result;
@@ -152,6 +152,9 @@ namespace TESUnity
                             }
                             break;
 
+                        case "CellRadius": ParseInt(value, ref tes.cellRadius, 1); break;
+                        case "CellDetailRadius": ParseInt(value, ref tes.cellDetailRadius, 1); break;
+                        case "CellRadiusOnLoad": ParseInt(value, ref tes.cellRadiusOnLoad, 1); break;
                         default: break;
                     }
                 }
@@ -219,6 +222,15 @@ namespace TESUnity
             return defaultValue;
         }
 
+        private static void ParseBool(string key, ref bool value)
+        {
+            var val = key.ToLower();
+            if (val == "true" || val == "1")
+                value = true;
+            else if (val == "false" || key == "0")
+                value = false;
+        }
+
         private static int ParseInt(string value, int defaultValue)
         {
             int result;
@@ -229,6 +241,25 @@ namespace TESUnity
             return defaultValue;
         }
 
+        private static void ParseInt(string key, ref int value, int? min = null, int? max = null)
+        {
+            int result;
+
+            if (int.TryParse(key, out result))
+            {
+                var valid = true;
+
+                if (min.HasValue)
+                    valid &= result >= min;
+
+                if (max.HasValue)
+                    valid &= result <= max;
+
+                if (valid)
+                    value = result;
+            }
+        }
+
         private static float ParseFloat(string value, float defaultValue)
         {
             float result;
@@ -237,6 +268,25 @@ namespace TESUnity
                 return result;
 
             return defaultValue;
+        }
+
+        private static void ParseFloat(string key, ref float value, float? min = null, float? max = null)
+        {
+            float result;
+
+            if (float.TryParse(key, out result))
+            {
+                var valid = true;
+
+                if (min.HasValue)
+                    valid &= result >= min;
+
+                if (max.HasValue)
+                    valid &= result <= max;
+
+                if (valid)
+                    value = result;
+            }
         }
     }
 }
